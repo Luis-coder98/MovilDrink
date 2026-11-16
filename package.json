@@ -1,0 +1,21 @@
+{
+  "name": "movildrink",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Bebidas y confituras para vender desde el auto. Pedidos y cobro con Yappy (Panamá).",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
+    "vite": "^8.2.1"
+  }
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es-PA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d9488" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<meta name="description" content="MovilDrink — bebidas y confituras a domicilio. Pago con Yappy.">
+<title>MovilDrink</title>
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MovilDrink">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<!-- ══════════════════ ENCABEZADO ══════════════════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar__row">
+    <button class="brand" id="brandBtn" type="button" aria-label="Ir al inicio">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+          <path d="M6 9h20l-2.2 15.2A3 3 0 0 1 20.8 27h-9.6a3 3 0 0 1-3-2.8L6 9Z" fill="currentColor" opacity=".92"/>
+          <path d="M4 6.5h24" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="12" cy="30" r="0" fill="currentColor"/>
+          <path d="M13 13.5v8M19 13.5v8" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <strong id="brandName">MovilDrink</strong>
+        <small id="brandTag">Bebidas y confituras</small>
+      </span>
+    </button>
+
+    <div class="topbar__actions">
+      <button class="iconbtn" id="themeBtn" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+        <svg class="ico-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.1 5.1l1.4 1.4M17.5 17.5l1.4 1.4M18.9 5.1l-1.4 1.4M6.5 17.5l-1.4 1.4"/>
+        </svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
+        </svg>
+      </button>
+
+      <button class="iconbtn" id="ordersBtn" type="button" aria-label="Mis pedidos" title="Mis pedidos">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3h12l1.5 4.5H4.5L6 3Z"/><path d="M4.5 7.5h15V19a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2V7.5Z"/><path d="M9.5 11.5h5"/>
+        </svg>
+      </button>
+
+      <button class="cartbtn" id="cartBtn" type="button" aria-label="Ver carrito">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 4h2.2l2.3 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.55L21 8H6.2"/>
+          <circle cx="10" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/>
+        </svg>
+        <span class="cartbtn__count" id="cartCount" hidden>0</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="topbar__row topbar__row--search">
+    <div class="search">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>
+      </svg>
+      <input id="searchInput" type="search" inputmode="search" placeholder="Buscar bebida o confitura…" autocomplete="off" aria-label="Buscar productos">
+      <button class="search__clear" id="searchClear" type="button" aria-label="Limpiar búsqueda" hidden>&times;</button>
+    </div>
+  </div>
+
+  <nav class="chips" id="chips" aria-label="Categorías"></nav>
+</header>
+
+<!-- ══════════════════ CONTENIDO ══════════════════ -->
+<div class="layout">
+  <main id="main" class="main">
+
+    <!-- Vista: Catálogo -->
+    <section class="view" id="view-catalogo">
+      <div class="grid" id="productGrid" aria-live="polite"></div>
+      <p class="empty" id="emptyCatalog" hidden>
+        <span aria-hidden="true">🔎</span>
+        No encontramos productos con ese filtro.
+      </p>
+    </section>
+
+    <!-- Vista: Pedidos -->
+    <section class="view" id="view-pedidos" hidden>
+      <div class="viewhead">
+        <h1>Mis pedidos</h1>
+        <button class="btn btn--ghost btn--sm" id="backFromOrders" type="button">Volver al catálogo</button>
+      </div>
+      <div id="ordersList"></div>
+    </section>
+
+    <!-- Vista: Admin -->
+    <section class="view" id="view-admin" hidden>
+      <div id="adminRoot"></div>
+    </section>
+
+  </main>
+
+  <!-- Carrito: panel lateral en laptop, hoja inferior en móvil -->
+  <aside class="cart" id="cartPanel" aria-label="Carrito de compras" aria-hidden="true">
+    <div class="cart__head">
+      <h2>Tu pedido</h2>
+      <button class="iconbtn cart__close" id="cartClose" type="button" aria-label="Cerrar carrito">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="cart__body" id="cartBody"></div>
+    <div class="cart__foot" id="cartFoot"></div>
+  </aside>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- Barra flotante de carrito (móvil / tablet) -->
+<button class="cartbar" id="cartBar" type="button" hidden>
+  <span class="cartbar__qty" id="cartBarQty">0</span>
+  <span class="cartbar__label">Ver pedido</span>
+  <span class="cartbar__total" id="cartBarTotal">B/. 0.00</span>
+</button>
+
+<!-- Pie -->
+<footer class="foot">
+  <button class="linkbtn" id="adminLink" type="button">Panel del vendedor</button>
+  <span class="foot__sep">·</span>
+  <span id="footBrand">MovilDrink</span>
+  <span class="foot__sep">·</span>
+  <span>Panamá 🇵🇦</span>
+</footer>
+
+<!-- ══════════════════ MODALES ══════════════════ -->
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal__box" id="modalBox">
+    <div class="modal__head">
+      <h2 id="modalTitle">…</h2>
+      <button class="iconbtn" id="modalClose" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
